@@ -1,0 +1,282 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 14, 11;
+  --background-end-rgb: 5, 7, 5;
+  --gary-bg: #0a0e0b;
+  --gary-card: #101410;
+  --gary-accent: #4caf50;
+  --gary-accent-glow: rgba(76, 175, 80, 0.2);
+  --gary-text: #ffffff;
+  --gary-text-secondary: #8a8f98;
+  --gary-border: #1e2e1e;
+
+  /* Keep Telegram variables for compatibility */
+  --telegram-bg: var(--gary-bg);
+  --telegram-secondary-bg: var(--gary-card);
+  --telegram-text: var(--gary-text);
+  --telegram-hint: var(--gary-text-secondary);
+  --telegram-link: var(--gary-accent);
+  --telegram-button: var(--gary-accent);
+  --telegram-button-text: var(--gary-text);
+}
+
+body {
+  color: var(--gary-text);
+  background-color: var(--gary-bg);
+  background-image: url("/images/background-new-1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Fix for Telegram WebApp input issues */
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+  touch-action: manipulation;
+  background-color: rgba(16, 20, 16, 0.7); /* Semi-transparent background */
+  color: var(--gary-text);
+  border: 1px solid var(--gary-border);
+}
+
+/* Ensure inputs are properly focusable and editable */
+input:focus,
+textarea:focus {
+  outline: none;
+  -webkit-user-select: text;
+  user-select: text;
+  border-color: var(--gary-accent);
+}
+
+/* Prevent zoom on focus for iOS */
+@supports (-webkit-touch-callout: none) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* Custom scrollbar for the app */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gary-card);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gary-accent-glow);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gary-accent);
+}
+
+/* Gary-specific styles using layer components */
+@layer components {
+  .gary-button {
+    background-color: var(--gary-accent);
+    color: var(--gary-text);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+  }
+
+  .gary-button:active {
+    opacity: 0.8;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+  }
+
+  .gary-button-outline {
+    background-color: rgba(16, 20, 16, 0.5); /* Semi-transparent background */
+    color: var(--gary-accent);
+    border: 1px solid var(--gary-accent);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    backdrop-filter: blur(4px);
+  }
+
+  .gary-button-outline:active {
+    background-color: rgba(76, 175, 80, 0.2);
+  }
+
+  .gary-input {
+    background-color: rgba(16, 20, 16, 0.7); /* Semi-transparent background */
+    color: var(--gary-text);
+    border: 1px solid var(--gary-border);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .gary-input:focus {
+    outline: none;
+    border-color: var(--gary-accent);
+    box-shadow: 0 0 0 2px var(--gary-accent-glow);
+  }
+
+  .gary-card {
+    background-color: rgba(16, 20, 16, 0.7); /* Semi-transparent background */
+    border-radius: 0.75rem;
+    padding: 1rem;
+    color: var(--gary-text);
+    border: 1px solid var(--gary-border);
+    backdrop-filter: blur(4px);
+  }
+
+  .gary-link {
+    color: var(--gary-accent);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .gary-link:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+  }
+
+  .gary-glow {
+    text-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+  }
+
+  .gary-glow-box {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+    animation: pulse 3s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+  }
+}
+
+/* For compatibility with existing code */
+.tg-button {
+  @apply gary-button;
+}
+.tg-input {
+  @apply gary-input;
+}
+.tg-card {
+  @apply gary-card;
+}
+.tg-link {
+  @apply gary-link;
+}
+
+/* Fix for bottom navigation buttons */
+nav.fixed button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  position: relative;
+  z-index: 60;
+}
+
+/* Add a larger tap target for mobile */
+nav.fixed button::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  z-index: -1;
+}
+
+/* Ensure the nav bar is above Telegram's UI */
+nav.fixed {
+  z-index: 9999 !important;
+}
+
+/* Make tab buttons more responsive */
+nav.fixed button {
+  position: relative;
+  overflow: visible;
+}
+
+/* Add active state styles */
+nav.fixed button:active {
+  opacity: 0.7;
+}
+
+/* Ensure tab text is visible */
+nav.fixed button span {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ensure tab icons are visible */
+nav.fixed button svg {
+  position: relative;
+  z-index: 2;
+}
+
+/* Fix for content overlapping with bottom navigation */
+.content-with-bottom-nav {
+  padding-bottom: 80px !important;
+}
+
+/* Ensure scrollable areas don't overlap with navigation */
+.scrollable-content {
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+/* Add styles to ensure bottom sheets have proper spacing and scrolling */
+
+/* Fix for bottom sheets to ensure they don't overlap with the navigation bar */
+.fixed.bottom-0.left-0.right-0.bg-\[var$$--telegram-secondary-bg$$\] {
+  padding-bottom: 80px !important;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Ensure forms inside bottom sheets have proper padding */
+.fixed.bottom-0.left-0.right-0.bg-\[var$$--telegram-secondary-bg$$\] form {
+  padding-bottom: 80px;
+}
+
+/* Ensure the bottom navigation stays fixed and above other content */
+nav.fixed {
+  z-index: 9999 !important;
+  background-color: var(--gary-bg);
+  border-top: 1px solid var(--gary-border);
+  bottom: 0;
+  position: fixed;
+}
