@@ -2,11 +2,16 @@
   "name": "my-v0-project",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.5.2",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "pnpm next dev",
+    "build": "pnpm next build",
+    "start": "pnpm next start",
+    "lint": "eslint . --fix",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@ai-sdk/openai": "latest",
@@ -47,7 +52,7 @@
     "cmdk": "1.0.4",
     "crypto": "latest",
     "crypto-js": "latest",
-    "date-fns": "4.1.0",
+    "date-fns": "2.29.3",
     "embla-carousel-react": "8.5.1",
     "ethers": "latest",
     "input-otp": "1.4.1",

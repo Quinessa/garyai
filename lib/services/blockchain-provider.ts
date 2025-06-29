@@ -1,8 +1,9 @@
 import { ethers } from "ethers"
+import { serverEnv } from "@/lib/env"
 
-// Alchemy API key for Ethereum mainnet - Consider moving to environment variables
-const ALCHEMY_API_KEY = "UFkgWyFWSq2dE-7lk4uHlKyqxzhqhFCT"
-const ALCHEMY_RPC_URL = `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`
+const ALCHEMY_RPC_URL = `https://eth-mainnet.g.alchemy.com/v2/${serverEnv.ALCHEMY_API_KEY}`
+
+let cachedProvider: ethers.JsonRpcProvider | null = null
 
 // ERC20 ABI for token interactions - Standardized to ERC20_ABI (snake_case)
 export const ERC20_ABI = [
@@ -60,7 +61,10 @@ export const COMMON_TOKENS = [
 ]
 
 export function getProvider(): ethers.JsonRpcProvider {
-  return new ethers.JsonRpcProvider(ALCHEMY_RPC_URL, "mainnet", { staticNetwork: true })
+  if (!cachedProvider) {
+    cachedProvider = new ethers.JsonRpcProvider(ALCHEMY_RPC_URL, "mainnet", { staticNetwork: true })
+  }
+  return cachedProvider
 }
 
 export function getSigner(privateKey: string): ethers.Wallet {

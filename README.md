@@ -70,9 +70,9 @@ GaryAI Wallet is a Telegram Mini App that allows users to manage Ethereum wallet
 ## Getting Started
 
 1. Clone the repository
-2. Install dependencies with `npm install`
-3. Create a `.env.local` file with the required environment variables
-4. Run the development server with `npm run dev`
+2. Install dependencies with `pnpm install`
+3. Run `cp .env.example .env.local` and fill in your real keys
+4. Start the development server with `pnpm dev`
 5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## Environment Variables

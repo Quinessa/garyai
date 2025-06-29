@@ -164,10 +164,6 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [lastRefreshTime, setLastRefreshTime] = useState<number>(0)
-  const [cachedWalletData, setCachedWalletData] = useState<{
-    walletId: string
-    encryptedPrivateKey: string
-  } | null>(null)
 
   // Add these new state variables for tracking balance check operations
   const [balanceCheckStats, setBalanceCheckStats] = useState<BalanceCheckStats>({
@@ -294,18 +290,6 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
               setActiveWallet(active)
               console.log("Loaded active wallet from localStorage:", active)
 
-              // Cache the wallet ID for later use
-              const walletId = active.id
-
-              // Try to load encrypted private key from localStorage
-              const encryptedPrivateKey = localStorage.getItem(`wallet_${walletId}_privateKey`)
-              if (encryptedPrivateKey) {
-                setCachedWalletData({
-                  walletId,
-                  encryptedPrivateKey,
-                })
-                logActivity("Cached wallet private key from localStorage", { walletId })
-              }
             }
           }
 
@@ -907,19 +891,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
       //   }
       // }
 
-      // // If not found in database, try to get from cached data
-      // if (!encPrivateKey && cachedWalletData && cachedWalletData.walletId === activeWallet.id) {
-      //   encPrivateKey = cachedWalletData.encryptedPrivateKey
-      // }
 
-      // // If still not found, try to get from localStorage directly
-      // if (!encPrivateKey) {
-      //   encPrivateKey = localStorage.getItem(`wallet_${activeWallet.id}_privateKey`)
-      // }
-
-      // if (!encPrivateKey) {
-      //   throw new Error("Wallet private key not found or accessible.")
-      // }
       if (!activeWallet?.id || !dbUser?.id) {
         throw new Error("Active wallet or user ID is missing.")
       }
